@@ -22,11 +22,6 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
-
-		$bulb_tbl = 'bulb';
-		$cluster_tbl = 'cluster';
-		$schedule_tbl = 'schedule';
-		
 		
 		//Get the markers
 		$markers = Bulb::all();
@@ -42,14 +37,14 @@ class HomeController extends BaseController {
 		$bulbsCount = Bulb::all()->count();
 
 		//Get readings
-		$readings = DB::select('SELECT bulbid, name FROM bulb WHERE bulbid IN (SELECT DISTINCT bulbid FROM poweranalyzer ORDER BY bulbid)');
+		$readings = Poweranalyzer::all();
 		$readingsCount = count($readings);
 
 		//Get schedules
 		$schedules = Schedule::all();
 		$schedulesCount = Schedule::all()->count();
 
-		return View::make('test')->with('markers',$markers)->with('markersCount',$markersCount)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
+		return View::make('home')->with('markers',$markers)->with('markersCount',$markersCount)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
 		
 		
 	}

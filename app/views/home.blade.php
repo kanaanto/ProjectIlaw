@@ -41,36 +41,35 @@ function initialize() {
 	var infoWindow = new google.maps.InfoWindow();
 	var bounds = new google.maps.LatLngBounds();
 	
-	var markersArray = <?php echo json_encode($markers) ?>
+	var markersArray = <?php echo json_encode($markers) ?>;
+	var markersCount = {{$markersCount}};
 	
-	for (var i = 0; i < {{ $markersCount }} i++){
-		if (markersArray[i]["state"] == "on")
+	for (var i = 0; i < markersCount; i++){
+		
+		if (markersArray[i].state == "on")
 			var iconColor = 'http://maps.google.com/mapfiles/ms/icons/orange.png';
-		else if (markersArray[i]["state"] == "off")
+		else if (markersArray[i].state== "off")
 			var iconColor = 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png';
 		else
 			var iconColor = 'http://maps.google.com/mapfiles/ms/icons/grey.png';
 			
 		var marker = new google.maps.Marker({
-			position: new google.maps.LatLng(markersArray[i]["latitude"], markersArray[i]["longitude"]),
+			position: new google.maps.LatLng(markersArray[i].latitude, markersArray[i]["longitude"]),
 			map: map,
 			icon: iconColor,
-			title: markersArray[i]["streetadd"]
+			title: markersArray[i].streetadd
 		});
 		
 		
 		google.maps.event.addListener(marker, 'click', (function(marker, i) {
 				return function(){
-					infoWindow.setContent('<a href="' + './view.php?bulbid=' + markersArray[i]["bulbid"] + '">' + markersArray[i]["name"] + '</a>');
+					infoWindow.setContent('<a href="' + './view.php?bulbid=' + markersArray[i].id + '">' + markersArray[i].name + '</a>');
 					infoWindow.open(map, marker);
 				}
 		})(marker, i));
 		bounds.extend(marker.position);
 	}
 	
-	
-
-
 	map.fitBounds(bounds);  
 }
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -132,11 +131,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			</a>
 			<ul class="dropdown-menu">
 				<li role="presentation" class="dropdown-header">Map Clusters</li>
-				<?php
-					for($i = 0; $i < $clustersCount; $i++) {
-						echo "<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./cluster.php?clusterid=".$clusters[$i]['clusterid']."\">".$clusters[$i]['name']."</a></li>";
-					}
-				?>
+				
+				@foreach ($clusters as $c)
+					<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./cluster.php?clusterid=".{{$c->clusterid}}."\">".{{$c->name}}."</a></li>
+				@endforeach
 				
 				<li role="presentation" class="divider"></li>
 				<li role="presentation"><a role="menuitem" tabindex="-1" href="./addcluster.php">Add a Cluster</a></li>
@@ -151,11 +149,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			</a>
 			<ul class="dropdown-menu">
 				<li role="presentation" class="dropdown-header">Light Bulbs</li>
-				<?php
-					for($i = 0; $i < $bulbsCount; $i++) {
-						echo "<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./view.php?bulbid=".$bulbs[$i]['bulbid']."\">".$bulbs[$i]['name']."</a></li>";
-					}
-				?>
+				
+				@foreach ($bulbs as $b)
+					<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./view.php?bulbid=".{{$b->id}}."\">".{{$b->name}}."</a></li>
+				@endforeach
+
 				<li role="presentation" class="divider"></li>
 				<li role="presentation"><a role="menuitem" tabindex="-1" href="./addlight.php">Add a Light</a></li>
           </ul>
@@ -169,11 +167,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			</a>
 			<ul class="dropdown-menu">
 				<li role="presentation" class="dropdown-header">Consumption Reports</li>
-				<?php
-					for($i = 0; $i < $readingsCount; $i++) {
-						echo "<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./readings.php?bulbid=".$readings[$i]['bulbid']."\">".$readings[$i]['name']."</a></li>";
-					}
-				?>
+
+				@foreach($readings as $r)
+					<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./readings.php?bulbid=".{{$r->id}}."\">".{{$r->name}}."</a></li>
+				@endforeach
+
 				<li role="presentation" class="divider"></li>
 				<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Customize a Report</a></li>
           </ul>
@@ -187,13 +185,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			</a>
 			<ul class="dropdown-menu">
 				<li role="presentation" class="dropdown-header">Events</li>
-				<?php
-					$dateNow = date("Y-m-d");
-					for($i = 0; $i < $schedulesCount; $i++) {
-						if ($schedules[$i]['end_date'] > $dateNow)
-							echo "<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./viewschedule.php?scheduleid=".$schedules[$i]['scheduleid']."\">On ".$schedules[$i]['start_date']." to ".$schedules[$i]['end_date']." from ".$schedules[$i]['start_time']." to ".$schedules[$i]['end_time']."</a></li>";
+				
+				@foreach($schedules as $s)
+					if($s->end_date > $datenow){
+						<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./viewschedule.php?scheduleid=".{{$s->scheduleid}}."\">On ".{{$s->start_date}}." to ".{{$s->end_date}}." from ".{{$s->start_time}}." to ".{{$s->end_time}}."</a></li>
 					}
-				?>
+				@endforeach
+
 				<li role="presentation" class="divider"></li>
 				<li role="presentation"><a role="menuitem" tabindex="-1" href="./addschedule.php">Schedule an Event</a></li>
           </ul>
