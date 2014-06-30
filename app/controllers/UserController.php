@@ -9,27 +9,30 @@ class UserController extends BaseController {
 
 
    public function checklogin(){
-   		
-   		$username = Input::get('username');
-		
-   		$count = User::where('username','=',$username)->where('password','=',Input::get('password'))->count();
 
-   		if($count==1){
+         $username = Input::get('username');
+         $password = Input::get('password');
+         
+         if (Auth::attempt(array('username' => $username,'password' => $password)))
+         {     
+            
+            Session::put('username',$username);
+            return Redirect::intended('home');
+         
+         }
 
-   			//Set session
-   			Session::put('username',$username);
-   			Session::put('loggedIn',true);
-   			
-   			return Redirect::to('home');
-   		}
-   		
+         else 
+         {
+            //return $password;
+            return Redirect::to('login');
+         }
 
-   		else 
-   		{
-   			Session::put('loggedIn',false);
-   			return Redirect::to('login');
-   		}
+   }
 
+   public function logout(){
+      Auth::logout();
+      return Redirect::to('login');
+      
    }
 
 }

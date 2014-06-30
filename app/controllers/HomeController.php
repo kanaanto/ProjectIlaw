@@ -15,37 +15,39 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
-	{
-		return View::make('hello');
-	}
 
 	public function index()
 	{
 		
-		//Get the markers
-		$markers = Bulb::all();
-		$markersCount = Bulb::all()->count();
-		
-		//Get clusters
-		//$clusters = DB::table($cluster_tbl)->lists('clusterid','name');
-		$clusters= Cluster::all();
-		$clustersCount = Cluster::all()->count();
-		
-		//Get bulbs
-		$bulbs = Bulb::all();
-		$bulbsCount = Bulb::all()->count();
+		if(Auth::check()){
+			
+			//Get the markers
+			$markers = Bulb::all();
+			$markersCount = Bulb::all()->count();
+			
+			//Get clusters
+			//$clusters = DB::table($cluster_tbl)->lists('clusterid','name');
+			$clusters= Cluster::all();
+			$clustersCount = Cluster::all()->count();
 
-		//Get readings
-		$readings = Poweranalyzer::all();
-		$readingsCount = count($readings);
+			
+			//Get bulbs
+			$bulbs = Bulb::all();
+			$bulbsCount = Bulb::all()->count();
 
-		//Get schedules
-		$schedules = Schedule::all();
-		$schedulesCount = Schedule::all()->count();
 
-		return View::make('home')->with('markers',$markers)->with('markersCount',$markersCount)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
-		
+			//Get readings
+			$readings = Poweranalyzer::all();
+			$readingsCount = count($readings);
+
+
+			//Get schedules
+			$schedules = Schedule::all();
+			$schedulesCount = Schedule::all()->count();
+
+			return View::make('home')->with('markers',$markers)->with('markersCount',$markersCount)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
+			//return $markers;
+		}
 		
 	}
 

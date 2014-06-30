@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('header_css')
-	
+	{{ HTML::style('css/home.css'); }}
 	<title>Home | iLaw</title>
 	<style>
 		html, body, #map-canvas {
@@ -26,7 +26,7 @@
 			width: 25%;
 		}
     </style>
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
 	<script>
 var map;
 
@@ -110,7 +110,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
             		<?php if(Session::get('username') == 'Admin') echo '<li>'; else echo '<li class="disabled">'?><a href="#"><small>Manage Users<span class="glyphicon glyphicon-user pull-right"></span></small><span class="glyphicon glyphicon-user pull-right"></span></a></li>
             	</ul>
             </li>
-          </ul>
         </div>
       </div>
     </div>
@@ -120,7 +119,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 @section('content')
 
 	<div id="map-canvas"></div>
-<div id="float">
+	<div id="float">
 	<ul class="list-group list-unstyled">
 		<li id="maps" class="dropdown">
 
@@ -129,6 +128,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			  Maps
 			  <span class="badge pull-right badge-warning">{{ $clustersCount }}</span>
 			</a>
+			
 			<ul class="dropdown-menu">
 				<li role="presentation" class="dropdown-header">Map Clusters</li>
 				
@@ -139,6 +139,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 				<li role="presentation" class="divider"></li>
 				<li role="presentation"><a role="menuitem" tabindex="-1" href="./addcluster.php">Add a Cluster</a></li>
           </ul>
+		
 		</li>
 		<li id="lights" class="dropdown">
 		
@@ -147,6 +148,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			  Lights
 			  <span class="badge pull-right"><?php echo $bulbsCount; ?></span>
 			</a>
+			
 			<ul class="dropdown-menu">
 				<li role="presentation" class="dropdown-header">Light Bulbs</li>
 				

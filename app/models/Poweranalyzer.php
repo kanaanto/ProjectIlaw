@@ -1,13 +1,13 @@
 <?php
 
-class Schedule extends Eloquent {
+class Poweranalyzer extends Eloquent {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'schedule';
+	protected $table = 'poweranalyzer';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
