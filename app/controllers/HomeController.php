@@ -29,17 +29,14 @@ class HomeController extends BaseController {
 			//$clusters = DB::table($cluster_tbl)->lists('clusterid','name');
 			$clusters= Cluster::all();
 			$clustersCount = Cluster::all()->count();
-
 			
 			//Get bulbs
 			$bulbs = Bulb::all();
 			$bulbsCount = Bulb::all()->count();
 
-
 			//Get readings
 			$readings = Poweranalyzer::all();
 			$readingsCount = count($readings);
-
 
 			//Get schedules
 			$schedules = Schedule::all();

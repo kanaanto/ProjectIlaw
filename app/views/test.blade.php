@@ -5,7 +5,8 @@
 	<script>
 
 		
-
+		alert ({{$marker->state}});
+	
 	</script>
 
 @stop

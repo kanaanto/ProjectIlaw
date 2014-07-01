@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.login_default')
 
 @section('header_css')
 	{{ HTML::style('css/signin.css'); }}
