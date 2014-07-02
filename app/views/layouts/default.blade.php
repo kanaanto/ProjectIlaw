@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		
+
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,13 +12,13 @@
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		
+
 		<title>Sign in | iLaw</title>
-		
+
 		{{ HTML::style('css/home.css'); }}
-		
+
 		@yield("header_css")
-	
+
 	</head>
 
 	<body>
@@ -70,32 +70,32 @@
 						  Maps
 						  <span class="badge pull-right badge-warning">{{ $clustersCount }}</span>
 						</a>
-						
+
 						<ul class="dropdown-menu">
 							<li role="presentation" class="dropdown-header">Map Clusters</li>
-							
+
 							@foreach ($clusters as $c)
-								<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./cluster.php?clusterid=".{{$c->clusterid}}."\">".{{$c->name}}."</a></li>
+								<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./cluster.php?clusterid=".{{$c->clusterid}}."\">{{$c->name}}</a></li>
 							@endforeach
-							
+
 							<li role="presentation" class="divider"></li>
 							<li role="presentation"><a role="menuitem" tabindex="-1" href="./addcluster.php">Add a Cluster</a></li>
 			          </ul>
-					
+
 					</li>
 					<li id="lights" class="dropdown">
-					
+
 						<a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown">
 						  <span class="glyphicon glyphicon-adjust"></span>
 						  Lights
 						  <span class="badge pull-right"><?php echo $bulbsCount; ?></span>
 						</a>
-						
+
 						<ul class="dropdown-menu">
 							<li role="presentation" class="dropdown-header">Light Bulbs</li>
-							
+
 							@foreach ($bulbs as $b)
-								<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./view.php?bulbid=".{{$b->id}}."\">".{{$b->name}}."</a></li>
+								<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./view.php?bulbid=".{{$b->id}}."\">{{$b->name}}</a></li>
 							@endforeach
 
 							<li role="presentation" class="divider"></li>
@@ -103,7 +103,7 @@
 			          </ul>
 					</li>
 					<li id="readings" class="dropdown">
-					
+
 						<a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown">
 						  <span class="glyphicon glyphicon-signal"></span>
 						  Reports
@@ -113,7 +113,7 @@
 							<li role="presentation" class="dropdown-header">Consumption Reports</li>
 
 							@foreach($readings as $r)
-								<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./readings.php?bulbid=".{{$r->id}}."\">".{{$r->name}}."</a></li>
+								<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./readings.php?bulbid=".{{$r->id}}."\">{{$r->name}}</a></li>
 							@endforeach
 
 							<li role="presentation" class="divider"></li>
@@ -121,7 +121,7 @@
 			          </ul>
 					</li>
 					<li id="schedules" class="dropdown">
-					
+
 						<a href="#" class="list-group-item dropdown-toggle" data-toggle="dropdown">
 						  <span class="glyphicon glyphicon-calendar"></span>
 						  Schedules
@@ -129,24 +129,20 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li role="presentation" class="dropdown-header">Events</li>
-							
-							@foreach($schedules as $s)
-								if($s->end_date > $datenow){
-									<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./viewschedule.php?scheduleid=".{{$s->scheduleid}}."\">On ".{{$s->start_date}}." to ".{{$s->end_date}}." from ".{{$s->start_time}}." to ".{{$s->end_time}}."</a></li>
-								}
-							@endforeach
+							<?php $datenow = date("Y-m-d") ?>
 
+							@foreach($schedules as $s)
+								@if($s->end_date > $datenow)
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="./viewschedule.php?scheduleid="{{$s->scheduleid}}">On {{$s->start_date}} to {{$s->end_date}} from {{$s->start_time}} to {{$s->end_time}}</a></li>
+								@endif
+							@endforeach
 							<li role="presentation" class="divider"></li>
 							<li role="presentation"><a role="menuitem" tabindex="-1" href="./addschedule.php">Schedule an Event</a></li>
-			          </ul>
-					</li>		
+			      </ul>
+					</li>
 				</ul>
 			</div>
 		<!-- END SIDEBAR -->
 		@yield('content')
-
 	</body>
 </html>
-
-		
-		

@@ -2,7 +2,7 @@
 
 @section('header_css')
 	{{ HTML::style('css/home.css'); }}
-	
+
 	<title>Home | iLaw</title>
 	<style>
 		html, body, #map-canvas {
@@ -12,11 +12,11 @@
 		}
 		#map-canvas {
 			height: 100%;
-			position: absolute; 
-			top: 0; 
-			bottom: -200px; 
-			left: 0; 
-			right: 0; 
+			position: absolute;
+			top: 0;
+			bottom: -200px;
+			left: 0;
+			right: 0;
 			z-index: 0;
 		}
 		#float {
@@ -41,27 +41,27 @@ function initialize() {
       mapOptions);
 	var infoWindow = new google.maps.InfoWindow();
 	var bounds = new google.maps.LatLngBounds();
-	
+
 	var markersArray = <?php echo json_encode($markers) ?>;
-	var markersCount = {{$markersCount}};	
-	
+	var markersCount = {{$markersCount}};
+
 	for (var i = 0; i < markersCount; i++){
-		
+
 		if (markersArray[i].state == "on")
 			var iconColor = 'http://maps.google.com/mapfiles/ms/icons/orange.png';
 		else if (markersArray[i].state== "off")
 			var iconColor = 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png';
 		else
 			var iconColor = 'http://maps.google.com/mapfiles/ms/icons/grey.png';
-			
+
 		var marker = new google.maps.Marker({
 			position: new google.maps.LatLng(markersArray[i].latitude, markersArray[i]["longitude"]),
 			map: map,
 			icon: iconColor,
 			title: markersArray[i].streetadd
 		});
-		
-		
+
+
 		google.maps.event.addListener(marker, 'click', (function(marker, i) {
 				return function(){
 					infoWindow.setContent('<a href="' + './bulb/' + markersArray[i].id + '">' + markersArray[i].name + '</a>');
@@ -70,8 +70,8 @@ function initialize() {
 		})(marker, i));
 		bounds.extend(marker.position);
 	}
-	
-	map.fitBounds(bounds);  
+
+	map.fitBounds(bounds);
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 

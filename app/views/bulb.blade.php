@@ -1,9 +1,11 @@
 @extends('layouts.default')
 
 @section('header_css')
+
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 
 	<title>Light | iLaw</title>
+
 	<style>
 		html, body, #map-canvas {
 			height: 100%;
@@ -12,11 +14,11 @@
 		}
 		#map-canvas {
 			height: 100%;
-			position: absolute; 
-			top: 0; 
-			bottom: -200px; 
-			left: 0; 
-			right: 0; 
+			position: absolute;
+			top: 0;
+			bottom: -200px;
+			left: 0;
+			right: 0;
 			z-index: 0;
 		}
 		#float {
@@ -37,7 +39,7 @@
 		#slider-range-min {
 			margin-top: 17px;
 		}
-		
+
 		#slider-range-min .ui-slider-range { background: #FF9900; }
   		#slider-range-min .ui-slider-handle { border-color: #FF9900; }
   		.liveChart {
@@ -52,7 +54,7 @@
 			overflow: hidden;
 			position: relative;
 		}
-			
+
 		.embed-container iframe {
 			width: 100%;
 			height: 100%;
@@ -63,12 +65,11 @@
 	</style>
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
 	<script>
-		
-		var markerArray = {{json_encode($marker)}};
+
 		var map;
-		
+		var markerArray = {{json_encode($marker)}};
+
 		function initialize() {
-		  
 		  var mapOptions = {
 			zoom: 17,
 			styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]}]
@@ -76,26 +77,25 @@
 		  };
 		    var map = new google.maps.Map(document.getElementById('map-canvas'),
 			    mapOptions);
-			
+
+
+
 			var options = {
 				map: map,
 				position: new google.maps.LatLng(markerArray.latitude, markerArray.longtitude),
 			  };
-			
+
 			var infoWindow = new google.maps.InfoWindow(options);
-			
+
 			map.setCenter(options.position);
-			
-			if (markerArray.state == "on"){
+
+			if (markerArray.state == "on")
 				var iconColor = 'http://maps.google.com/mapfiles/ms/icons/orange.png';
-			}
-			else if (markerArray.state == "off"){
+			else if (markerArray.state == "off")
 				var iconColor = 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png';
-			}
-			else{
+			else
 				var iconColor = 'http://maps.google.com/mapfiles/ms/icons/grey.png';
-			}
-			
+
 			var marker = new google.maps.Marker({
 				position: new google.maps.LatLng(markerArray.latitude, markerArray.longtitude),
 				map: map,
@@ -103,14 +103,14 @@
 				title: markerArray.address
 			});
 
-			
+
 			google.maps.event.addListener(marker, 'click', (function(marker) {
 					return function(){
-						infoWindow.setContent('<a href="./view.php?bulbid='+markerArray.id+'">' + markerArray.name+ '</a>');
+						infoWindow.setContent('<a href="./view.php?bulbid='+markerArray.id+'">' + markerArray.name + '</a>');
 						infoWindow.open(map, marker);
 					}
 			})(marker));
-			
+
 			google.maps.event.addDomListener(document.getElementById('slideON'),"click",function() {
 			  marker.setIcon('http://maps.google.com/mapfiles/ms/icons/orange.png');
 			});
@@ -118,23 +118,23 @@
 			google.maps.event.addDomListener(document.getElementById('slideOFF'),"click",function() {
 			  marker.setIcon('http://maps.google.com/mapfiles/ms/icons/orange-dot.png');
 			});
-			
+
 			var offsetx = 1- (screen.width * 0.375);
 			var offsety = 1 - (screen.height * 0.10);
 			map.panBy(offsetx, offsety);
-		
-		}	
-		
+
+		}
+
 		google.maps.event.addDomListener(window, 'load', initialize);
-		
+
 
     </script>
-	
-		<script src="//code.jquery.com/jquery-latest.js"></script>
+
+	<script src="//code.jquery.com/jquery-latest.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 		<script src="./js/jquery.ui.touch-punch.min.js"></script>
-		<script>	
+		<script>
 			$(function () {
 					var showPopover = function () {
 						$(this).popover('show');
@@ -170,8 +170,7 @@
 					  $('#notifications').popover('hide');
 					  $('#messages').popover('hide');
 					})
-			});	
-
+			});
 		</script>
 @stop
 
@@ -202,11 +201,11 @@
 								<div id="switchedON" class="btn-group" style="display:none">
 							@endif
 									<button id="clickOFF" type="button" class="btn btn-warning btn-lg active">&nbsp;ON&nbsp;</button>
-									<button id="slideOFF" onclick="toggledisplay('switchedON');" type="button" class="btn btn-default btn-lg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>			
+									<button id="slideOFF" onclick="toggledisplay('switchedON');" type="button" class="btn btn-default btn-lg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</div>
-								
+
 								{{$offline="";}}
-								
+
 								@if ($marker->state === "off")
 									<div id="switchedOFF" class="btn-group" style="">
 								@elseif ($marker->state === "on")
@@ -219,21 +218,21 @@
 										<button id="slideON" onclick="toggledisplay('switchedOFF');" type="button" class="btn btn-default btn-lg" <?php echo $offline;?>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 										<button id="clickON" type="button" class="btn btn-default btn-lg active" {{$offline}}>OFF&nbsp;</button>
 									</div>
-						
+
 							<script>
-						
+
 							var state = markerArray.state;
 							var level = markerArray.currbrightness;
-							
+
 							function switchON() {
 								var ip = markerArray.ip;
 								var bulbid = markerArray.id;
-					
-								$.get('http://'+ip+'/ilawcontrol.php?state=on&level=1&mode=control', {}, 
+
+								$.get('http://'+ip+'/ilawcontrol.php?state=on&level=1&mode=control', {},
 									function(data){
 										console.log(data);
 									});
-								$.get('./bulbDB.php?bulbid='+bulbid+'&state=on&level=1&mode=control', {}, 
+								$.get('./bulbDB.php?bulbid='+bulbid+'&state=on&level=1&mode=control', {},
 									function(data){
 										console.log(data);
 									});
@@ -242,20 +241,20 @@
 							function switchOFF() {
 								var ip = markerArray.ip;
 								var bulbid = markerArray.id;
-					
-								$.get('http://'+ip+'/ilawcontrol.php?state=off&level=0&mode=control', {}, 
+
+								$.get('http://'+ip+'/ilawcontrol.php?state=off&level=0&mode=control', {},
 									function(data){
 										console.log(data);
 									});
-								$.get('./bulbDB.php?bulbid='+bulbid+'&state=off&level=0&mode=control', {}, 
+								$.get('./bulbDB.php?bulbid='+bulbid+'&state=off&level=0&mode=control', {},
 									function(data){
 										console.log(data);
 									});
 								state = "off";
 							}
-							
+
 							function toggledisplay(elementID)
-							{	
+							{
 								(function(style) {
 									style.display = style.display === 'none' ? '' : 'none';
 								})(document.getElementById(elementID).style);
@@ -283,9 +282,9 @@
 							</script>
 						</div>
 					</div>
-					
+
 					<div class="form-group" id="brightnessSlider">
-						
+
 					<label for="brightness" class="col-sm-offset-1 col-sm-2 control-label">Brightness</label>
 	  				<div class="col-sm-2">
 		  				<input type="text" class="form-control input-lg" id="brightness" disabled>
@@ -294,10 +293,10 @@
 	  					<div id="slider-range-min"></div>
 					</div>
 					<script>
-						
+
 						state = markerArray.state;
 						level = markerArray.currbrightness;
-					
+
 						$('#slider-range-min .ui-slider-handle').draggable();
 						$(function() {
 							$( "#slider-range-min" ).slider({
@@ -315,27 +314,27 @@
 							var level = $( "#slider-range-min" ).slider( "value" );
 							var ip = markerArray.ip;
 							var bulbid = markerArray.id;
-							
+
 							if(state == "on"){
-								$.get('http://'+ip+'/ilawcontrol.php?state=on&level='+level+'&mode=control', {}, 
+								$.get('http://'+ip+'/ilawcontrol.php?state=on&level='+level+'&mode=control', {},
 									function(data){
 										console.log(data);
 									});
-								$.get('./bulbDB.php?bulbid='+bulbid+'&state=on&level='+level+'&mode=control', {}, 
+								$.get('./bulbDB.php?bulbid='+bulbid+'&state=on&level='+level+'&mode=control', {},
 									function(data){
 										console.log(data);
 									});
 							}
-						});			
+						});
 						if ((state == "cnbr") || (state == "off"))
 							$('#slider-range-min').slider({ disabled: true });
 						else
 							$('#slider-range-min').slider({ disabled: false });
-					</script>		
-			
+					</script>
+
 				</div>
 				</div>
 			</form>
 		</div>
-	</div>	
+	</div>
 @stop

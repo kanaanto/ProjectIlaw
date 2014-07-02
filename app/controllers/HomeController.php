@@ -18,18 +18,18 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
-		
+
 		if(Auth::check()){
-			
+
 			//Get the markers
 			$markers = Bulb::all();
 			$markersCount = Bulb::all()->count();
-			
+
 			//Get clusters
 			//$clusters = DB::table($cluster_tbl)->lists('clusterid','name');
 			$clusters= Cluster::all();
 			$clustersCount = Cluster::all()->count();
-			
+
 			//Get bulbs
 			$bulbs = Bulb::all();
 			$bulbsCount = Bulb::all()->count();
@@ -44,8 +44,9 @@ class HomeController extends BaseController {
 
 			return View::make('home')->with('markers',$markers)->with('markersCount',$markersCount)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
 			//return $markers;
+
 		}
-		
+
 	}
 
 }
