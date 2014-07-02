@@ -12,29 +12,45 @@ class CreateUsersTable extends Migration {
 	 */
 	public function up()
 	{
-		//
-		Schema::create('users', function($t) {
-                $t->increments('id');
-                $t->string('username', 16);
-                $t->string('password', 64);
-                $t->string('email');
-                $t->integer('level');
-                $t->string('state',64);
-                $t->timestamps();
-        });
 
-        Schema::create('bulb', function($t) {
-                $t->increments('id');
-                $t->string('ip', 16);
-                $t->string('address', 200);
-                $t->string('latitude');
-                $t->string('longtitude');
-                $t->string('state',64);
-                $t->integer('currbrightness');
-                $t->string('mode',10);
-                $t->string('name',200);
-                $t->timestamps();
-        });
+		Schema::create('users', function($t) {
+        $t->increments('id');
+        $t->string('username', 16);
+        $t->string('password', 64);
+        $t->string('email');
+        $t->integer('level');
+        $t->string('state',64);
+        $t->timestamps();
+    });
+
+    Schema::create('bulb', function($t) {
+        $t->increments('id');
+        $t->string('ip', 16);
+        $t->string('address', 200);
+        $t->string('latitude');
+        $t->string('longtitude');
+        $t->string('state',64);
+        $t->integer('currbrightness');
+        $t->string('mode',10);
+        $t->string('name',200);
+        $t->timestamps();
+    });
+
+		Schema::create('bulb', function($t) {
+				$t->increments('id');
+				$t->string('ip', 16);
+				$t->string('address', 200);
+				$t->string('latitude');
+				$t->string('longtitude');
+				$t->string('state',64);
+				$t->integer('currbrightness');
+				$t->string('mode',10);
+				$t->string('name',200);
+				$t->timestamps();
+		});
+
+		
+
 
 	}
 

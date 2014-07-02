@@ -29,6 +29,7 @@
     </style>
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
 	<script>
+
 var map;
 
 function initialize() {
@@ -58,7 +59,7 @@ function initialize() {
 			position: new google.maps.LatLng(markersArray[i].latitude, markersArray[i]["longitude"]),
 			map: map,
 			icon: iconColor,
-			title: markersArray[i].streetadd
+			title: markersArray[i].address
 		});
 
 
@@ -76,5 +77,7 @@ function initialize() {
 google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>
+
+
 
 @stop
