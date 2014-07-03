@@ -5,24 +5,25 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-		<title>Sign in | iLaw</title>
-
+		
+		<!-- Common JS -->
+		{{ HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'); }}
+		{{ HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css'); }}
+		{{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'); }}
+		{{ HTML::script('https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'); }}
+		{{ HTML::script('//code.jquery.com/jquery-latest.js'); }}
+		{{ HTML::script('//code.jquery.com/ui/1.10.4/jquery-ui.js'); }}
+		{{ HTML::script('/js/jquery.ui.touch-punch.min.js'); }}
+		{{ HTML::script('//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'); }}
+		
+		<!-- Common CSS -->
 		{{ HTML::style('css/home.css'); }}
-
+		{{ HTML::style('css/simple-sidebar.css'); }}
+		@yield("page_title")
+		
 		@yield("header_css")
-
-		<script src="//code.jquery.com/jquery-latest.js"></script>
-		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-		<script src="./js/jquery.ui.touch-punch.min.js"></script>
+		@yield("header_js")
+		
 		<script>
 			$(function () {
 					var showPopover = function () {
@@ -38,6 +39,8 @@
 						trigger: 'click',
 						placement: 'auto'
 					})
+
+			
 			$('#notifications').popover({
 						html: 'true',
 						title: '<a href="#">See all notifications</a>',
@@ -63,9 +66,7 @@
 		</script>
 
 	</head>
-
 	<body>
-
 		<!-- Header Menu -->
 			<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		      <div class="container-fluid">
@@ -104,7 +105,11 @@
 
 		<!-- SIDEBAR -->
 			<div id="map-canvas"></div>
+
 				<div id="float">
+					
+				
+
 				<ul class="list-group list-unstyled">
 					<li id="maps" class="dropdown">
 
@@ -118,7 +123,7 @@
 							<li role="presentation" class="dropdown-header">Map Clusters</li>
 
 							@foreach ($clusters as $c)
-								<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./cluster.php?clusterid=".{{$c->clusterid}}."\">{{$c->name}}</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="/cluster/{{$c->id}}">{{$c->name}}</a></li>
 							@endforeach
 
 							<li role="presentation" class="divider"></li>
@@ -172,7 +177,8 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li role="presentation" class="dropdown-header">Events</li>
-							<?php $datenow = date("Y-m-d") ?>
+
+							{{--*/ $datenow = date("Y-m-d")  /*--}}
 
 							@foreach($schedules as $s)
 								@if($s->end_date > $datenow)
@@ -187,5 +193,12 @@
 			</div>
 		<!-- END SIDEBAR -->
 		@yield('content')
+		<!-- FOOTER -->
+		<!-- 	<div id="footer">
+		      <div class="container-fluid">
+		        <p class="text-muted">&copy; 2014 Solatronics <small class="pull-right"><a href="#">about</a> &#8226; <a href="#">contact</a> &#8226; <a href="#">help</a></small></p>
+		      </div>
+			</div> -->
+		<!-- FOOTER -->
 	</body>
 </html>

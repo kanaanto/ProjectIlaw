@@ -1,5 +1,9 @@
 @extends('layouts.login_default')
 
+@section('page_title')
+	<title> Login </title>
+@stop
+
 @section('header_css')
 	{{ HTML::style('css/signin.css'); }}
 @stop

@@ -42,8 +42,35 @@ class ClustersController extends \BaseController {
 	 * @return Response
 	 */
 	public function show($id)
-	{
-		//Search via cluster id
+	{	
+
+		if(Auth::check()){
+			
+			//Get the markers
+			//$marker = Bulb::find($id);
+			//Get clusters
+			//$clusters = DB::table($cluster_tbl)->lists('clusterid','name');
+			$clusters= Cluster::all();
+			$clustersCount = Cluster::all()->count();
+			
+			//Get bulbs
+			$bulbs = Bulb::all();
+			$bulbsCount = Bulb::all()->count();
+
+			//Get readings
+			$readings = Poweranalyzer::all();
+			$readingsCount = count($readings);
+
+			//Get schedules
+			$schedules = Schedule::all();
+			$schedulesCount = Schedule::all()->count();
+
+			$markers = Clusterbulb::find($id);
+			$markersCount = count($clusters);
+
+			return View::make('cluster')->with('markers',$markers)->with('markersCount',$markersCount)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
+			//return $marker;
+		}
 		
 	}
 
