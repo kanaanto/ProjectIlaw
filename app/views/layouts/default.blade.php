@@ -107,8 +107,6 @@
 			<div id="map-canvas"></div>
 
 				<div id="float">
-					
-				
 
 				<ul class="list-group list-unstyled">
 					<li id="maps" class="dropdown">

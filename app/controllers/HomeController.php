@@ -42,7 +42,7 @@ class HomeController extends BaseController {
 			$schedulesCount = Schedule::all()->count();
 
 			return View::make('home')->with('markers',$markers)->with('markersCount',$markersCount)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
-			
+			//return View::make('test');
 
 		}
 

@@ -24,3 +24,4 @@ Route::post("login","UserController@checklogin");
 Route::get("home","HomeController@index");
 Route::get("bulb/{bulb}","BulbsController@show");
 Route::get("cluster/{cluster}","ClustersController@show");
+
