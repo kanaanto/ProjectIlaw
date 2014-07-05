@@ -53,25 +53,21 @@
 			var infoWindow = new google.maps.InfoWindow();
 			var bounds = new google.maps.LatLngBounds();
 			var clustersCount = {{$markersCount}};
-			var markerArray = {{json_encode($markers)}};
-			console.log(markerArray);
-			
-			$.each({{json_encode($markerArray)}}, function(){
-				console.log("ID: " + this.id);
-			});	
+			var markersArray = {{json_encode($markers)}};
 
-			for (var i = 0; i < clustersCount; i++){
+			for (var i = markersArray.length - 1; i >= 0; i--) {
 				
-				
-				
+				var iconColor = "";
 
-				if (markersArray[i].state == "on")
-					var iconColor = 'http://maps.google.com/mapfiles/ms/icons/orange.png';
-				else if (markersArray[i].state == "off")
-					var iconColor = 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png';
-				else
-					var iconColor = 'http://maps.google.com/mapfiles/ms/icons/grey.png';
-
+				if (markersArray[i].state == "on"){
+					 iconColor = 'http://maps.google.com/mapfiles/ms/icons/orange.png';
+				}
+				else if (markersArray[i].state == "off"){
+					 iconColor = 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png';
+				}
+				else{
+					 iconColor = 'http://maps.google.com/mapfiles/ms/icons/grey.png';
+				}
 				var marker = new google.maps.Marker({
 					position: new google.maps.LatLng(markersArray[i].latitude, 
 						markersArray[i].longtitude),

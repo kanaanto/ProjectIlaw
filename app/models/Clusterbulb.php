@@ -8,10 +8,14 @@ class Clusterbulb extends \Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'clusterbulb_view';
+	protected $table = 'cluster_bulb';
 
 	public function bulb_cluster(){
 		return $this->belongsToMany('Bulb');
+	}
+
+	public function cluster_list($id){
+		return Clusterbulb::find($id);
 	}
 
 

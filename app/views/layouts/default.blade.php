@@ -116,7 +116,6 @@
 						  Maps
 						  <span class="badge pull-right badge-warning">{{ $clustersCount }}</span>
 						</a>
-
 						<ul class="dropdown-menu">
 							<li role="presentation" class="dropdown-header">Map Clusters</li>
 

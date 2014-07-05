@@ -17,5 +17,10 @@ class Bulb extends Eloquent {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
+	public function cluster_bulb(){
+		return $this->belongsToMany('Clusterbulb');
+	}
+
+
 
 }

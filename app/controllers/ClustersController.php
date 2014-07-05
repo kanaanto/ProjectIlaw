@@ -65,11 +65,16 @@ class ClustersController extends \BaseController {
 			$schedules = Schedule::all();
 			$schedulesCount = Schedule::all()->count();
 
-			$markers = Clusterbulb::find($id);
-			$markersCount = count($clusters);
+			//$markers = Clusterbulb::find($id);
+			//$markers = Bulb::g
+			//$markers = Bulb::find($id)->cluster_bulb;
+			//$markers = Bulb::find($id)->cluster_bulb;
+			$markers = DB::select("SELECT id, address, latitude, longitude, state, name FROM bulb WHERE id IN (SELECT bulb_id FROM cluster_bulb WHERE id=$id)");
+			$markersCount = count($markers);
 
 			return View::make('cluster')->with('markers',$markers)->with('markersCount',$markersCount)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
-			//return $marker;
+			//return $markers;
+			//return $markersCount;
 		}
 		
 	}
