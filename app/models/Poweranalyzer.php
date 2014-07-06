@@ -7,13 +7,4 @@ class Poweranalyzer extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'readings_view';
-
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password', 'remember_token');
-
 }

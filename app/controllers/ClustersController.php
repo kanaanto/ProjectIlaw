@@ -57,9 +57,9 @@ class ClustersController extends \BaseController {
 			$bulbs = Bulb::all();
 			$bulbsCount = Bulb::all()->count();
 
-			//Get readings
-			$readings = Poweranalyzer::all();
-			$readingsCount = count($readings);
+			// //Get readings
+			// $readings = Poweranalyzer::all();
+			// $readingsCount = count($readings);
 
 			//Get schedules
 			$schedules = Schedule::all();
@@ -67,13 +67,15 @@ class ClustersController extends \BaseController {
 
 			//$markers = Clusterbulb::find($id);
 			//$markers = Bulb::g
+			$markers = Bulb::find($id)->clusters;
 			//$markers = Bulb::find($id)->cluster_bulb;
-			//$markers = Bulb::find($id)->cluster_bulb;
-			$markers = DB::select("SELECT id, address, latitude, longitude, state, name FROM bulb WHERE id IN (SELECT bulb_id FROM cluster_bulb WHERE id=$id)");
+			//$markers = DB::select("SELECT id, address, latitude, longitude, state, name FROM bulb WHERE id IN (SELECT bulb_id FROM cluster_bulb WHERE id=$id)");
 			$markersCount = count($markers);
+			
 
-			return View::make('cluster')->with('markers',$markers)->with('markersCount',$markersCount)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
-			//return $markers;
+			//return View::make('cluster')->with('markers',$markers)->with('markersCount',$markersCount)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
+			//echo "hello";
+			return json_encode($markers);
 			//return $markersCount;
 		}
 		

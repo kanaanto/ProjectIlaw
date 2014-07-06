@@ -11,8 +11,26 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		// $this->call('UserTableSeeder');
-		$this->call('UserTableSeeder');
-		$this->command->info('User table seeded!');
+		$this->call('UsersTableSeeder');
+		$this->command->info('users table seeded!');
+
+		$this->call('BulbsTableSeeder');
+		$this->command->info('bulbs table seeded!');
+
+		$this->call('ClustersTableSeeder');
+		$this->command->info('clusters table seeded!');
+
+		$this->call('SchedulesTableSeeder');
+		$this->command->info('schedules table seeded!');
+
+		$this->call('ClusterScheduleTableSeeder');
+		$this->command->info('cluster_schdedule table seeded!');
+
+		$this->call('BulbClusterTableSeeder');
+		$this->command->info('bulb_cluster table seeded!');
+
+		$this->call('PoweranalyzerTableSeeder');
+		$this->command->info('poweranalyzer table seeded!');
 	}
 }
+

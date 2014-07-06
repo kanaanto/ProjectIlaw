@@ -6,5 +6,5 @@ class Cluster extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'cluster';
+	
 }

@@ -33,8 +33,10 @@ class HomeController extends BaseController {
 			$bulbs = Bulb::all();
 			$bulbsCount = Bulb::all()->count();
 
-			//Get readings
-			$readings = Poweranalyzer::all();
+			//Get distinct bulbs
+			$distinct_bulbs = array_fetch(DB::select("SELECT DISTINCT bulb_id FROM poweranalyzers ORDER BY bulb_id"),'bulb_id');
+			
+			$readings = Bulb::whereIn('id',$distinct_bulbs)->get();
 			$readingsCount = count($readings);
 
 			//Get schedules
@@ -42,8 +44,7 @@ class HomeController extends BaseController {
 			$schedulesCount = Schedule::all()->count();
 
 			return View::make('home')->with('markers',$markers)->with('markersCount',$markersCount)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
-			//return $clusters
-
+			
 		}
 
 	}

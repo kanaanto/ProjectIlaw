@@ -8,17 +8,9 @@ class Bulb extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'bulb';
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password', 'remember_token');
-
-	public function cluster_bulb(){
-		return $this->belongsToMany('Clusterbulb');
+	public function clusters(){
+		return $this->belongsToMany('Cluster','cluster_bulb');
 	}
 
 

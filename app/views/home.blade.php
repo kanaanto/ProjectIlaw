@@ -27,10 +27,11 @@
 			var bounds = new google.maps.LatLngBounds();
 
 			var markersArray = <?php echo json_encode($markers) ?>;
+
 			var markersCount = {{$markersCount}};
 
 			for (var i = 0; i < markersCount; i++){
-
+				
 				if (markersArray[i].state == "on")
 					var iconColor = 'http://maps.google.com/mapfiles/ms/icons/orange.png';
 				else if (markersArray[i].state== "off")
