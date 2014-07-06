@@ -87,7 +87,7 @@
 		            	<ul class="dropdown-menu">
 		            		<li class="dropdown-header"><strong>Account</strong></li>
 		            		<li><a href="#"><small>Edit Profile</small></a></li>
-		            		<li><a href="./signout.php"><small>Sign Out</small></a></li>
+		            		<li><a href="/logout"><small>Sign Out</small></a></li>
 		            	</ul>
 		            </li>
 		            <li id="settings" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
@@ -140,7 +140,7 @@
 							<li role="presentation" class="dropdown-header">Light Bulbs</li>
 
 							@foreach ($bulbs as $b)
-								<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"./view.php?bulbid=".{{$b->id}}."\">{{$b->name}}</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="/bulb/".>{{$b->name}}</a></li>
 							@endforeach
 
 							<li role="presentation" class="divider"></li>

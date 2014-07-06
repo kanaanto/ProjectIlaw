@@ -20,6 +20,7 @@ class CreateUsers extends Migration {
 	        $table->string('email');
 	        $table->integer('level');
 	        $table->string('state',64);
+	        $table->rememberToken();
 			$table->timestamps();
 		});
 	}

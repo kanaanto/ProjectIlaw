@@ -26,11 +26,9 @@
 			var infoWindow = new google.maps.InfoWindow();
 			var bounds = new google.maps.LatLngBounds();
 
-			var markersArray = <?php echo json_encode($markers) ?>;
+			var markersArray = {{json_encode($markers)}};
 
-			var markersCount = {{$markersCount}};
-
-			for (var i = 0; i < markersCount; i++){
+			for (var i = markersArray.length - 1; i >= 0; i--) {
 				
 				if (markersArray[i].state == "on")
 					var iconColor = 'http://maps.google.com/mapfiles/ms/icons/orange.png';
@@ -40,7 +38,7 @@
 					var iconColor = 'http://maps.google.com/mapfiles/ms/icons/grey.png';
 
 				var marker = new google.maps.Marker({
-					position: new google.maps.LatLng(markersArray[i].latitude, markersArray[i]["longitude"]),
+					position: new google.maps.LatLng(markersArray[i].latitude, markersArray[i].longtitude),
 					map: map,
 					icon: iconColor,
 					title: markersArray[i].address

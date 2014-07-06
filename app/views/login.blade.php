@@ -20,7 +20,7 @@
 					{{ Form::password('password',array('class'=>'form-control','placeholder'=>'Password')) }}
 					
 					<div class="checkbox">
-						{{ Form::checkbox('remember') }}
+						{{ Form::checkbox('rememberUser') }}
 						{{ Form::label('Remember me') }}
 					</div>
 				
