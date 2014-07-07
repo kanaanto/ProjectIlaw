@@ -11,7 +11,7 @@
 @section('content')
 	<div class="container">
 		<div class="form-signin">	
-			{{ Form::open(array('url' => 'login'))  }}			
+			{{ Form::open(array('route' => 'store'))  }}			
 				<h1 class="text-center"><strong><span class="company-branding">i</span>Law<strong></h1>
 				
 				<h3 class="form-signin-heading">Please sign in</h3>

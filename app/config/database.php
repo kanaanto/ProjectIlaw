@@ -56,7 +56,7 @@ return array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
 			'unix_socket'  => '/Applications/MAMP/tmp/mysql/mysql.sock',
-			'database'  => 'ilaw',
+			'database'  => 'project_ilaw',
 			'username'  => 'root',
 			'password'  => '1234',
 			'charset'   => 'utf8',

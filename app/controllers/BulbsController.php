@@ -10,7 +10,32 @@ class BulbsController extends \BaseController {
 	public function index()
 	{
 		//
-		
+		if(Auth::check()){
+			
+			//Get the markers
+			$markers = Bulb::all();
+			
+			//Get clusters
+			//$clusters = DB::table($cluster_tbl)->lists('clusterid','name');
+			$clusters= Cluster::all();
+			$clustersCount = Cluster::all()->count();
+			
+			//Get bulbs
+			$bulbs = Bulb::all();
+			$bulbsCount = Bulb::all()->count();
+
+			//Get distinct bulbs
+			$distinct_bulbs = array_fetch(DB::select("SELECT DISTINCT bulb_id FROM poweranalyzers ORDER BY bulb_id"),'bulb_id');
+			$readings = Bulb::whereIn('id',$distinct_bulbs)->get();
+			$readingsCount = count($readings);
+			//Get schedules
+			$schedules = Schedule::all();
+			$schedulesCount = Schedule::all()->count();
+
+			return View::make('add_bulb')->with('markers',$markers)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
+			//return $marker;
+			
+		}
 	}
 
 
@@ -21,7 +46,9 @@ class BulbsController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		//Create a new light/lamp
+		return Input::get('longtitude');
+		
 	}
 
 
@@ -69,7 +96,6 @@ class BulbsController extends \BaseController {
 			return View::make('bulb')->with('marker',$marker)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
 			//return $marker;
 		}
-
 	}
 
 	/**

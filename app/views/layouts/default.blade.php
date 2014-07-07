@@ -77,13 +77,13 @@
 		            <span class="icon-bar"></span>
 		            <span class="icon-bar"></span>
 		          </button>
-		          <a class="navbar-brand" href="./"><h3 class="brand-name"><strong><span class="company-branding">i</span>Law</strong></h3></a>
+		          <a class="navbar-brand" href="/home"><h3 class="brand-name"><strong><span class="company-branding">i</span>Law</strong></h3></a>
 		        </div>
 		        <div class="navbar-collapse collapse">
 		          <ul class="nav navbar-nav navbar-right">
 		            <li id="messages"><a href="#"><span class="glyphicon glyphicon-envelope"></span><span class="badge badge-warning">2</span></a></li>
 		            <li id="notifications"><a href="#"><span class="glyphicon glyphicon-exclamation-sign"></span><span class="badge badge-warning">1</span></a></li>
-		            <li id="account" class="active dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{ Session::get('username') }}</a>
+		            <li id="account" class="active dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->username }}</a>
 		            	<ul class="dropdown-menu">
 		            		<li class="dropdown-header"><strong>Account</strong></li>
 		            		<li><a href="#"><small>Edit Profile</small></a></li>
@@ -95,7 +95,7 @@
 		            		<li class="dropdown-header"><strong>Settings</strong></li>
 		            		<li><a href="#"><small>Custom Reports</small><span class="glyphicon glyphicon-file pull-right"></span></a></li>
 		            		<li><a href="#"><small>Set Notifications</small><span class="glyphicon glyphicon-flag pull-right"></span></a></li>
-		            		<?php if(Session::get('username') == 'Admin') echo '<li>'; else echo '<li class="disabled">'?><a href="#"><small>Manage Users<span class="glyphicon glyphicon-user pull-right"></span></small><span class="glyphicon glyphicon-user pull-right"></span></a></li>
+		            		<?php if(Auth::user()->username == 'Admin') echo '<li>'; else echo '<li class="disabled">'?><a href="#"><small>Manage Users<span class="glyphicon glyphicon-user pull-right"></span></small><span class="glyphicon glyphicon-user pull-right"></span></a></li>
 		            	</ul>
 		            </li>
 		        </div>
@@ -140,11 +140,11 @@
 							<li role="presentation" class="dropdown-header">Light Bulbs</li>
 
 							@foreach ($bulbs as $b)
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="/bulb/".>{{$b->name}}</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="/bulb/{{$b->id}}">{{$b->name}}</a></li>
 							@endforeach
 
 							<li role="presentation" class="divider"></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="./addlight.php">Add a Light</a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="/bulb/">Add a Light</a></li>
 			          </ul>
 					</li>
 					<li id="readings" class="dropdown">

@@ -11,18 +11,12 @@
 |
 */
 
-// Route::get('/','UserController@login');
-// Route::get('test', function(){
 
-// 	return View::make('hello');
-
-// });
-
-//Route::resource("login","UserController");
-Route::get("login","UserController@index");
-Route::post("login","UserController@checklogin");
-Route::get("home","HomeController@index");
-Route::get("bulb/{bulb}","BulbsController@show");
+//Route::get("home","HomeController@index");
+//Route::get("bulb/{bulb}","BulbsController@show");
 Route::get("cluster/{cluster}","ClustersController@show");
-Route::get("logout","UserController@logout");
 
+Route::resource("home","HomeController");
+Route::resource("bulb","BulbsController");
+Route::resource("/","SessionsController");
+Route::get("logout","SessionsController@destroy");

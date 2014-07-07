@@ -6,7 +6,7 @@ class UserController extends BaseController {
    	
       //If user is not yet logged in	 
       if(!Auth::check()){
-   		 return View::make('login');
+   		 return View::make('/');
       }
 
       else {
@@ -32,7 +32,7 @@ class UserController extends BaseController {
 
          else 
          {
-            return Redirect::to('login');
+            return Redirect::to('/');
          }  
       
 
@@ -40,7 +40,7 @@ class UserController extends BaseController {
 
    public function logout(){
       Auth::logout();
-      return Redirect::to('login');   
+      return Redirect::to('/');   
    }
 
 }
