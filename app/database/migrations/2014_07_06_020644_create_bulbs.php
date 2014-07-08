@@ -19,7 +19,7 @@ class CreateBulbs extends Migration {
 			$table->string('name');
 	        $table->string('address');
 	        $table->string('latitude',50);
-	        $table->string('longtitude',50);
+	        $table->string('longitude',50);
 	        $table->string('state',5);
 	        $table->integer('currbrightness');
 	        $table->string('mode',10);

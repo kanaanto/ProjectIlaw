@@ -9,27 +9,39 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	
 	<style>
-			html, body, #map-canvas {
-	        	height: 100%;
-				margin: 0px;
-				padding: 0px
-			}
-			#map-canvas {
-				height: 100%;
-				position: absolute;
-				top: 0;
-				bottom: -200px;
-				left: 0;
-				right: 0;
-				z-index: 0;
-			}
-			#float {
-				z-index: 100;
-				float: right;
-				padding-top: 70px;
-				padding-right: 20px;
-				width: 25%;
-			}
+		html, body, #map-canvas {
+			height: 100%;
+			margin: 0px;
+			padding: 0px
+		}
+		#map-canvas {
+			height: 100%;
+			position: absolute;
+			top: 0;
+			bottom: -200px;
+			left: 0;
+			right: 0;
+			z-index: 0;
+		}
+		#float {
+			z-index: 100;
+			float: right;
+			padding-top: 70px;
+			padding-right: 20px;
+			width: 25%;
+		}
+		#content {
+			z-index: 100;
+			float: left;
+			padding-top: 70px;
+			padding-left: 20px;
+			width: 70%;
+			color: white;
+		}
+		#addressBulb::-webkit-input-placeholder::after {
+			display:block;
+			content:"Unit Number, House/Building/Street Number + Street Name\A Barangay Name, City/Municipality\A Postal Code + Province\A Country";
+		}
   	</style>
 @stop
 
@@ -38,107 +50,127 @@
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
 	<script>
 
-		var markersArray = {{json_encode($markers)}};
-		var map, infoWindow,marker;
-		
+		var map;
+		var markerArray = {{json_encode($marker)}};
+
 		function initialize() {
-			var mapOptions = {
-					    zoom: 17,
-						styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]}],
-						disableDefaultUI: true
-			  	};
-				
-			var map = new google.maps.Map(document.getElementById('map-canvas'),
-			  mapOptions);
-			var infoWindow = new google.maps.InfoWindow();
-			var bounds = new google.maps.LatLngBounds();
-			
-			for (var i = markersArray.length - 1; i >= 0; i--) {
-				
-				var iconColor = "";
+		  var mapOptions = {
+			zoom: 17,
+			styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]}],
 
-				if (markersArray[i].state == "on"){
-					 iconColor = 'http://maps.google.com/mapfiles/ms/icons/orange.png';
-				}
-				else if (markersArray[i].state == "off"){
-					 iconColor = 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png';
-				}
-				else{
-					 iconColor = 'http://maps.google.com/mapfiles/ms/icons/grey.png';
-				}
-				
-				var marker = new google.maps.Marker({
-					position: new google.maps.LatLng(markersArray[i].latitude, 
-						markersArray[i].longtitude),
-					map: map,
-					icon: iconColor,
-					title: markersArray[i].address
-				});
+				disableDefaultUI: true
 
+		  	};
+		    
+		    var map = new google.maps.Map(document.getElementById('map-canvas'),
+			    mapOptions);
 
-				google.maps.event.addListener(marker, 'click', (function(marker, i) {
-						return function(){
-							infoWindow.setContent('<a href="' + '' + markersArray[i].id + '">' + markersArray[i].name + '</a>');
-							infoWindow.open(map, marker);
-						}
-				})(marker, i));
-			}
+			var options = {
+				map: map,
+				position: new google.maps.LatLng(markerArray.latitude, markerArray.longitude),
+			  };
 
-			if(navigator.geolocation) {
-			    navigator.geolocation.getCurrentPosition(function(position) {
-			      var pos = new google.maps.LatLng(position.coords.latitude,
-			                                       position.coords.longitude);
-			      var marker = new google.maps.Marker({
-						position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-						map: map,
-						draggable:true,
-			    		animation: google.maps.Animation.DROP
-					});
+			var infoWindow = new google.maps.InfoWindow(options);
 
-			      var infoWindow = new google.maps.InfoWindow({
-			        map: map,
-			        position: pos,
-			        content: 'You are here! <a href="{{ route('bulb.create')}}?latitude='+pos.lat()+'&longitude='+pos.lng()+'\">tap to add light</a><br>or click <small><strong>X</strong></small> then drag the red marker'
-			      });
-			      google.maps.event.addListener(marker, 'dragend', function(e) {
-			        var point = marker.getPosition();
-			        map.panTo(point);
-			        infoWindow.setContent('<a href="{{ route('bulb.create') }}?latitude='+point.lat()+'&longitude='+point.lng()+'">tap to add light here</a>');
-			        infoWindow.open(map, marker);
-			    });
+			map.setCenter(options.position);
 
-			      map.setCenter(pos);
-			    }, function() {
-			      handleNoGeolocation(true);
-			    });
-			} 
-			else {
-			    // Browser doesn't support Geolocation
-			    handleNoGeolocation(false);
-			}
+			var iconColor = 'http://maps.google.com/mapfiles/ms/icons/grey.png';
+
+			var marker = new google.maps.Marker({
+				position: new google.maps.LatLng(markerArray.latitude, markerArray.longitude),
+				map: map,
+				icon: iconColor
+			});
+
+			var offsetx = 1- (screen.width * 0.375);
+			var offsety = 1 - (screen.height * 0.10);
+			map.panBy(offsetx, offsety);
+
 		}
 
-		function handleNoGeolocation(errorFlag) {
-		  if (errorFlag) {
-		    var content = 'Error: The Geolocation service failed.';
-		  } else {
-		    var content = 'Error: Your browser doesn\'t support geolocation.';
-		  }
-
-		  var options = {
-		    map: map,
-		    position: new google.maps.LatLng(60, 105),
-		    content: content
-		  };
-
-		  var infoWindow = new google.maps.InfoWindow(options);
-		  map.setCenter(options.position);
-		}
-		
 		google.maps.event.addDomListener(window, 'load', initialize);
 		
+		function ValidateIPaddress(inputText){
+			 var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+			 if (inputText == "0.0.0.0")
+			 {
+				 alert("You have entered an invalid IP address!");
+				 document.addDetailsForm.ipAddressBulb.focus();
+				 return false;
+			 }
+			 else if (inputText == "255.255.255.255")
+			 {
+				 alert("You have entered an invalid IP address!");
+				 document.addDetailsForm.ipAddressBulb.focus();
+				 return false;
+			 }
+			 else if(inputText.match(ipformat))
+				 return true;
+			 else
+			 {
+				 alert("You have entered an invalid IP address!");
+				 document.addDetailsForm.ipAddressBulb.focus();
+				 return false;
+			 }
+		 }
+
     </script>
 
+@stop
+
+@section('content')
+	<div id="content">
+	<div class="container-fluid">
+		{{ Form::open(array('route'=>'bulb.store','class'=>'form-horizontal')) }}
+		<!-- <form class="form-horizontal" id="addDetailsForm" name="addDetailsForm" role="form" action="./processaddlight.php" onsubmit="return ValidateIPaddress(document.getElementById('ipAddressBulb').value);" method="post"> -->
+		  
+		  <div class="form-group">
+			{{Form::label('name', 'Name', array('class' => 'col-sm-2 control-label'))}}
+			<div class="col-sm-10">
+				{{Form::text('name',Input::old('name'),array('class'=>'form-control','placeholder'=>'light bulb name', 'required','autofocus'))}}
+			</div>
+		  </div>
+		  
+		  <div class="form-group">
+			{{Form::label('ip_address', 'IP Address', array('class' => 'col-sm-2 control-label'))}}
+			<div class="col-sm-10">
+			  {{Form::text('ip_address',Input::old('name'),array('class'=>'form-control','placeholder'=>'192.168.1.101', 'required'))}}
+			</div>
+		  </div>
+		  <div class="form-group">
+			{{Form::label('address', 'Address', array('class' => 'col-sm-2 control-label'))}}
+			<div class="col-sm-10">
+			  <textarea class="form-control" rows="5" id="addressBulb" name="addressBulb" placeholder="the nearest..." required></textarea>
+			</div>
+		  </div>
+		  <div class="form-group">
+			{{Form::label('cluster', 'Cluster', array('class' => 'col-sm-2 control-label'))}}
+			<div class="col-sm-10">
+				<input type="radio" name="optionsRadios" id="addNewCluster" value="new" onclick="document.getElementById('newCluster').disabled = false; document.getElementById('existingClusters').disabled = true;">
+				<label>Add this bulb to a new cluster.
+				<input type="text" class="form-control" name="newCluster" id="newCluster" placeholder="new cluster name" disabled="disabled" required></label>
+				<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>--OR--</strong><br>
+				<input type="radio" name="optionsRadios" id="selectCluster" value="existing" checked onclick="document.getElementById('newCluster').disabled = true; document.getElementById('existingClusters').disabled = false;">
+				<label>Include this bulb to an existing cluster.
+					<select class="form-control" id="existingClusters" name="existingClusters">
+						
+						@foreach ($clusters as $c)
+							<option value={{$c->id}}>{{$c->name}}</option>	
+						@endforeach
+
+					</select>
+				</label>
+			</div>
+		  </div>
+		  <?php
+		  	echo "<input type=\"hidden\" id=\"latitude\" name=\"latitude\" value=\"".$marker["latitude"]."\">";
+		  	echo "<input type=\"hidden\" id=\"longitude\" name=\"longitude\" value=\"".$marker["longitude"]."\">";
+		  ?>
+		  
+		
+		{{ Form::submit('Add Light Bulb',array('class'=>'form-group col-sm-offset-2 col-sm-10 btn btn-warning btn-lg btn-block'))}}
+	</div>
+	</div>	
 @stop
 
 

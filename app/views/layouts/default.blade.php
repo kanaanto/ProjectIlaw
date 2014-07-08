@@ -9,13 +9,7 @@
 		<!-- Common JS -->
 		{{ HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'); }}
 		{{ HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css'); }}
-		{{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'); }}
-		{{ HTML::script('https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'); }}
-		{{ HTML::script('//code.jquery.com/jquery-latest.js'); }}
-		{{ HTML::script('//code.jquery.com/ui/1.10.4/jquery-ui.js'); }}
-		{{ HTML::script('/js/jquery.ui.touch-punch.min.js'); }}
-		{{ HTML::script('//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'); }}
-		
+
 		<!-- Common CSS -->
 		{{ HTML::style('css/home.css'); }}
 		{{ HTML::style('css/simple-sidebar.css'); }}
@@ -197,5 +191,13 @@
 		      </div>
 			</div> -->
 		<!-- FOOTER -->
+		
+		{{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'); }}
+		{{ HTML::script('https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'); }}
+		{{ HTML::script('//code.jquery.com/jquery-latest.js'); }}
+		{{ HTML::script('//code.jquery.com/ui/1.10.4/jquery-ui.js'); }}
+		{{ HTML::script('/js/jquery.ui.touch-punch.min.js'); }}
+		{{ HTML::script('//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'); }}
+	
 	</body>
 </html>

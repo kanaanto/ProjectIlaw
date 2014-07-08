@@ -50,7 +50,8 @@ class SessionsController extends \BaseController {
 	        Session::put('username',$username);
 	        return Redirect::route('home.index');
 	    }
-
+	    
+	    Notification::error('Error!');
 	    return Redirect::back()->withInput();
 	}
 

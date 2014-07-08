@@ -1794,5 +1794,57 @@
             "faker",
             "fixtures"
         ]
+    },
+    {
+        "name": "edvinaskrucas/notification",
+        "version": "2.0.2",
+        "version_normalized": "2.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/edvinaskrucas/notification.git",
+            "reference": "60f6cc14c469aad6c016a7a6a9bf9f11b34889cf"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/edvinaskrucas/notification/zipball/60f6cc14c469aad6c016a7a6a9bf9f11b34889cf",
+            "reference": "60f6cc14c469aad6c016a7a6a9bf9f11b34889cf",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/config": "4.*",
+            "illuminate/events": "4.*",
+            "illuminate/session": "4.*",
+            "illuminate/support": "4.*",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "0.7.*"
+        },
+        "time": "2014-06-15 07:07:18",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Krucas\\Notification": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Edvinas Kručas",
+                "email": "edv.krucas@gmail.com"
+            }
+        ],
+        "description": "Package for Laravel for helping to manage flash / instant notifications / messages.",
+        "keywords": [
+            "flash",
+            "instant",
+            "laravel",
+            "messages",
+            "notifications"
+        ]
     }
 ]

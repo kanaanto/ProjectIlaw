@@ -92,7 +92,7 @@
 
 			var options = {
 				map: map,
-				position: new google.maps.LatLng(markerArray.latitude, markerArray.longtitude)
+				position: new google.maps.LatLng(markerArray.latitude, markerArray.longitude)
 			  };
 
 			var infoWindow = new google.maps.InfoWindow(options);
@@ -108,7 +108,7 @@
 
 
 			var marker = new google.maps.Marker({
-				position: new google.maps.LatLng(markerArray.latitude, markerArray.longtitude),
+				position: new google.maps.LatLng(markerArray.latitude, markerArray.longitude),
 				map: map,
 				icon: iconColor,
 				title: markerArray.address

@@ -70,7 +70,7 @@
 				}
 				var marker = new google.maps.Marker({
 					position: new google.maps.LatLng(markersArray[i].latitude, 
-						markersArray[i].longtitude),
+						markersArray[i].longitude),
 					map: map,
 					icon: iconColor,
 					title: markersArray[i].address
