@@ -6,7 +6,7 @@ class Bulb extends Eloquent {
 	protected $fillable = array('name', 'ip', 'address','latitude','longitude');
 	
 	public function clusters(){
-		return $this->belongsToMany('Cluster');
+		return $this->belongsToMany('Cluster')->withTimestamps();
 	}
 
 

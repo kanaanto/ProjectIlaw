@@ -19,10 +19,10 @@
 					{{ Form::text('username',Input::old('name'),array('class'=>'form-control','placeholder'=>'Username','required','autofocus')) }}				
 					{{ Form::password('password',array('class'=>'form-control','placeholder'=>'Password')) }}
 					
-					<div class="checkbox">
-						{{ Form::checkbox('rememberUser') }}
-						{{ Form::label('Remember me') }}
-					</div>
+						<div class='checkbox'>
+						{{ Form::checkbox('rememberUser')}}Remember me
+						</div>
+						
 				
 					{{ Form::submit('Sign In', array('class'=>'btn btn-lg btn-warning btn-block')) }}
 			{{ Form::close() }}

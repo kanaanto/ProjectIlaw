@@ -25,4 +25,8 @@ html, body, #map-canvas {
 	width: 25%;
 }
 
+.form-signin .checkbox {
+	margin-right: 20px;
+}
+
 

@@ -12,6 +12,7 @@
 		
 		{{ HTML::style('css/home.css'); }}
 		
+		
 		@yield("page_title")
 		
 		@yield("header_css")

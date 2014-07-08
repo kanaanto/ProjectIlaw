@@ -3,7 +3,7 @@
 class Cluster extends Eloquent {
 
 	public function bulbs(){
-		return $this->belongsToMany('Bulb');
+		return $this->belongsToMany('Bulb')->withTimestamps();
 	}
 
 	

@@ -132,19 +132,20 @@
 		  </div>
 		  
 		  <div class="form-group">
-			{{Form::label('ip_address', 'IP Address', array('class' => 'col-sm-2 control-label'))}}
+			{{Form::label('ip', 'IP Address', array('class' => 'col-sm-2 control-label'))}}
 			<div class="col-sm-10">
-			  {{Form::text('ip_address',Input::old('name'),array('class'=>'form-control','placeholder'=>'192.168.1.101', 'required'))}}
+			  {{Form::text('ip',Input::old('name'),array('class'=>'form-control','placeholder'=>'192.168.1.101', 'required'))}}
 			</div>
 		  </div>
 		  <div class="form-group">
 			{{Form::label('address', 'Address', array('class' => 'col-sm-2 control-label'))}}
 			<div class="col-sm-10">
-			  <textarea class="form-control" rows="5" id="addressBulb" name="addressBulb" placeholder="the nearest..." required></textarea>
+				{{Form::textarea('address','address',array('class'=>'form-control','placeholder'=>'address','required','size'=>'30x5'))}}
 			</div>
 		  </div>
 		  <div class="form-group">
 			{{Form::label('cluster', 'Cluster', array('class' => 'col-sm-2 control-label'))}}
+			
 			<div class="col-sm-10">
 				<input type="radio" name="optionsRadios" id="addNewCluster" value="new" onclick="document.getElementById('newCluster').disabled = false; document.getElementById('existingClusters').disabled = true;">
 				<label>Add this bulb to a new cluster.
@@ -161,12 +162,11 @@
 					</select>
 				</label>
 			</div>
-		  </div>
-		  <?php
-		  	echo "<input type=\"hidden\" id=\"latitude\" name=\"latitude\" value=\"".$marker["latitude"]."\">";
-		  	echo "<input type=\"hidden\" id=\"longitude\" name=\"longitude\" value=\"".$marker["longitude"]."\">";
-		  ?>
 		  
+		  </div>
+		  	<!-- Submit hidden form -->
+			{{ Form::hidden('longitude', $longitude) }}
+		  	{{ Form::hidden('latitude', $latitude) }}
 		
 		{{ Form::submit('Add Light Bulb',array('class'=>'form-group col-sm-offset-2 col-sm-10 btn btn-warning btn-lg btn-block'))}}
 	</div>

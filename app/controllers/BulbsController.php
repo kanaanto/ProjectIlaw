@@ -68,7 +68,7 @@ class BulbsController extends \BaseController {
 		$schedules = Schedule::all();
 		$schedulesCount = Schedule::all()->count();
 
-		return View::make('add_bulb')->with('marker',$marker)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
+		return View::make('add_bulb')->with('marker',$marker)->with('longitude',$longitude)->with('latitude',$latitude)->with('clusters',$clusters)->with('clustersCount',$clustersCount)->with('bulbs',$bulbs)->with('bulbsCount',$bulbsCount)->with('readings',$readings)->with('readingsCount',$readingsCount)->with('schedules',$schedules)->with('schedulesCount',$schedulesCount);
 		
 	}
 
@@ -91,7 +91,36 @@ class BulbsController extends \BaseController {
 
 		$bulb->save();
 		
+		$newBulbId = $bulb->id;
+		
+		//Add to new cluster
+		//If existing
+		if(Input::get('optionsRadios')=='existing'){
+			
+			$cluster_id = Input::get('existingClusters');
+			$cluster = Cluster::find($cluster_id);
+			
+			$cluster->bulbs()->attach($newBulbId);
+		}
+
+		else {
+			
+			$cluster = new Cluster;
+			$cluster->name = Input::get('newCluster');
+			
+			$cluster->save();
+			
+			$newClusterId = $cluster->id;
+
+			$newCluster = Cluster::find($newClusterId);
+
+			$cluster->bulbs()->attach($newBulbId);
+			
+
+		}
+
 		return Redirect::route('home.index');
+		
 	}
 
 
