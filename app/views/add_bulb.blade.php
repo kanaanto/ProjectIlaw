@@ -168,7 +168,11 @@
 			{{ Form::hidden('longitude', $longitude) }}
 		  	{{ Form::hidden('latitude', $latitude) }}
 		
-		{{ Form::submit('Add Light Bulb',array('class'=>'form-group col-sm-offset-2 col-sm-10 btn btn-warning btn-lg btn-block'))}}
+		<div class="form-control">
+			<div class="col-sm-offset-2 col-sm-10">
+				{{ Form::submit('Add Light Bulb',array('class'=>'btn btn-warning btn-lg btn-block'))}}
+			</div>
+		</div>
 	</div>
 	</div>	
 @stop

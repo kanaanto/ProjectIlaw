@@ -40,8 +40,7 @@
 			color: white;
 		}
 		#slider-range-min {
-			margin-top: 17px;
-		}
+			margin-top: 17px;}
 
 		#slider-range-min .ui-slider-range { background: #FF9900; }
   		#slider-range-min .ui-slider-handle { border-color: #FF9900; }
@@ -185,7 +184,63 @@
 										<button id="clickON" type="button" class="btn btn-default btn-lg active" {{$offline}}>OFF&nbsp;</button>
 									</div>
 
-							<script>
+							
+						</div>
+					</div>
+
+					<div class="form-group" id="brightnessSlider">
+					
+				<label for="brightness" class="col-sm-offset-1 col-sm-2 control-label">Brightness</label>
+  				<div class="col-sm-2">
+	  				<input type="text" class="form-control input-lg" id="brightness" disabled>
+	  			</div>
+				<div class="col-sm-7">
+  					<div id="slider-range-min"></div>
+				</div>
+				<script>
+					var state = markerArray.state;
+							var level = markerArray.currbrightness;
+				
+					$('#slider-range-min .ui-slider-handle').draggable();
+					$(function() {
+						$( "#slider-range-min" ).slider({
+							range: "min",
+							value: level, //current brightness given a particular light
+							min: 0,
+							max: 100,
+							slide: function( event, ui ) {
+								$( "#brightness" ).val( ui.value );
+							}
+						});
+						$( "#brightness" ).val( $( "#slider-range-min" ).slider( "value" ) );
+					});
+					$('#slider-range-min').on( "slidechange", function( event, ui ) {
+						var level = $( "#slider-range-min" ).slider( "value" );
+						var ip = "<?php echo $marker['ipaddress'];?>";
+						var bulbid = <?php echo $marker['bulbid'];?>;
+						if(state == "on"){
+							$.get('http://'+ip+'/ilawcontrol.php?state=on&level='+level+'&mode=control', {}, 
+								function(data){
+									console.log(data);
+								});
+							$.get('./bulbDB.php?bulbid='+bulbid+'&state=on&level='+level+'&mode=control', {}, 
+								function(data){
+									console.log(data);
+								});
+						}
+					});			
+					if ((state == "cnbr") || (state == "off"))
+						$('#slider-range-min').slider({ disabled: true });
+					else
+						$('#slider-range-min').slider({ disabled: false });
+				</script>		
+		
+			</div>
+			</form>
+		</div>
+	</div>
+	
+						<script>
 
 							var state = markerArray.state;
 							var level = markerArray.currbrightness;
@@ -246,61 +301,6 @@
 								}
 							}
 							</script>
-						</div>
-					</div>
 
-					<div class="form-group" id="brightnessSlider">
 
-					<label for="brightness" class="col-sm-offset-1 col-sm-2 control-label">Brightness</label>
-	  				<div class="col-sm-2">
-		  				<input type="text" class="form-control input-lg" id="brightness" disabled>
-		  			</div>
-					<div class="col-sm-7">
-	  					<div id="slider-range-min"></div>
-					</div>
-					<script>
-
-						state = markerArray.state;
-						level = markerArray.currbrightness;
-
-						$('#slider-range-min .ui-slider-handle').draggable();
-						$(function() {
-							$( "#slider-range-min" ).slider({
-								range: "min",
-								value: level, //current brightness given a particular light
-								min: 0,
-								max: 100,
-								slide: function( event, ui ) {
-									$( "#brightness" ).val( ui.value );
-								}
-							});
-							$( "#brightness" ).val( $( "#slider-range-min" ).slider( "value" ) );
-						});
-						$('#slider-range-min').on( "slidechange", function( event, ui ) {
-							var level = $( "#slider-range-min" ).slider( "value" );
-							var ip = markerArray.ip;
-							var bulbid = markerArray.id;
-
-							if(state == "on"){
-								$.get('http://'+ip+'/ilawcontrol.php?state=on&level='+level+'&mode=control', {},
-									function(data){
-										console.log(data);
-									});
-								$.get('./bulbDB.php?bulbid='+bulbid+'&state=on&level='+level+'&mode=control', {},
-									function(data){
-										console.log(data);
-									});
-							}
-						});
-						if ((state == "cnbr") || (state == "off"))
-							$('#slider-range-min').slider({ disabled: true });
-						else
-							$('#slider-range-min').slider({ disabled: false });
-					</script>
-
-				</div>
-				</div>
-			</form>
-		</div>
-	</div>
 @stop

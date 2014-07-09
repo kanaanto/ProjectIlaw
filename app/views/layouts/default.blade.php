@@ -98,6 +98,8 @@
 		<!-- End Header Menu -->
 
 		<!-- SIDEBAR -->
+
+		<div class="row">
 			<div id="map-canvas"></div>
 
 				<div id="float">
@@ -118,7 +120,7 @@
 							@endforeach
 
 							<li role="presentation" class="divider"></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="./addcluster.php">Add a Cluster</a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="{{route('cluster.create')}}">Add a Cluster</a></li>
 			          </ul>
 
 					</li>
@@ -182,6 +184,7 @@
 					</li>
 				</ul>
 			</div>
+		</div>
 		<!-- END SIDEBAR -->
 		@yield('content')
 		<!-- FOOTER -->

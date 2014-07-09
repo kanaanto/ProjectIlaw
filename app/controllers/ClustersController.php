@@ -26,6 +26,7 @@ class ClustersController extends \BaseController {
 	public function create()
 	{
 		//
+		return "Create New Cluster";
 	}
 
 

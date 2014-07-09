@@ -14,8 +14,9 @@
 
 //Route::get("home","HomeController@index");
 //Route::get("bulb/{bulb}","BulbsController@show");
-Route::get("cluster/{cluster}","ClustersController@show");
+//Route::get("cluster/{cluster}","ClustersController@show");
 
+Route::resource('cluster',"ClustersController");
 Route::resource("home","HomeController");
 Route::resource("bulb","BulbsController");
 Route::resource("/","SessionsController");
