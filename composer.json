@@ -7,7 +7,8 @@
 		"laravel/framework": "4.2.*",
 		"way/generators": "2.*",
 		"fzaninotto/faker": "1.3.*@dev",
-		"edvinaskrucas/notification": "2.*"
+		 "laracasts/utilities": "~1.0",
+		 "laracasts/flash": "~1.0"
 	},
 	"autoload": {
 		"classmap": [

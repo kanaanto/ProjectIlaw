@@ -28,6 +28,7 @@
 		<!-- Load script files at the bottom of the page -->
 		{{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'); }}
 		{{ HTML::script('https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'); }}
+		
 	</body>
 
 </html>

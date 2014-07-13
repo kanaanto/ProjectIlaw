@@ -40,7 +40,6 @@ class SessionsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
 		$username = Input::get('username');
 	    $password = Input::get('password');
 	    $rememberUser = Input::get('rememberUser');
@@ -51,7 +50,7 @@ class SessionsController extends \BaseController {
 	        return Redirect::route('home.index');
 	    }
 	    
-	    Notification::error('Error!');
+	    Flash::error('Login error');
 	    return Redirect::back()->withInput();
 	}
 

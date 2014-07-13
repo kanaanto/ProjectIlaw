@@ -9,7 +9,9 @@
 @stop
 
 @section('content')
+
 	<div class="container">
+		@include('flash::message')
 		<div class="form-signin">	
 			{{ Form::open(array('route' => 'store'))  }}			
 				<h1 class="text-center"><strong><span class="company-branding">i</span>Law<strong></h1>
