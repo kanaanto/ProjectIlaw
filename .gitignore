@@ -1,2 +1,7 @@
 app/config/database.php
 .idea
+node_modules/gulp
+node_modules/gulp-jshint
+node_modules/*
+node_modules/gulp-ruby-sass
+node_modules

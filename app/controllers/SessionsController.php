@@ -50,7 +50,7 @@ class SessionsController extends \BaseController {
 	        return Redirect::route('home.index');
 	    }
 	    
-	    Flash::error('Login error');
+	    //Flash::error('Login error');
 	    return Redirect::back()->withInput();
 	}
 
